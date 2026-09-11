@@ -84,19 +84,22 @@
                 <!-- Fim vTurb -->
 
                 <!-- ================================================================
-                     CHECKOUT DO FRONT — aparece sozinho no momento do pitch (16min20s)
+                     CHECKOUT DO FRONT — só aparece quando o botão DA VTURB
+                     (o hotspot de dentro do vídeo, já configurado por você) é
+                     clicado. Não existe botão nosso aqui, de propósito.
 
-                     O hotspot dentro do vídeo da VTurb só sabe abrir um link, não
-                     consegue hospedar o widget de cartão da Whop. Por isso esse
-                     bloco existe fora do vídeo: fica escondido e é revelado pelo
-                     script de delay logo abaixo, sincronizado com o vídeo.
+                     Pra isso funcionar, o link do hotspot na VTurb precisa
+                     apontar pra URL desta mesma página + "#fdv-front-checkout"
+                     (em vez do link antigo do Whop). O script abaixo escuta
+                     esse endereço e revela o bloco só nesse momento.
 
                      Cartão → widget embutido (salva o método de pagamento p/ 1-clique).
                      PIX → link direto pro checkout hospedado (PIX não pode ficar
                      dentro do widget embutido, por isso fica separado).
                      ================================================================ -->
                 <script src="/fdv-oneclick.js"></script>
-                <div class="oferta-front esconder" style="display:none">
+
+                <div class="checkout-front" id="fdv-front-checkout" style="display:none">
                   <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
                   <script>
                     window.onCheckoutComplete = window.fdvFrontComplete;
@@ -113,15 +116,16 @@
                   <a href="https://whop.com/checkout/ch_XmIbeZoej9XUZQS" style="display:block;text-align:center;margin-top:14px">Pagar com PIX</a>
                 </div>
 
-                <!-- ================================================================
-                     Revela o bloco acima no timestamp do pitch (16min20s = 980s)
-                     ================================================================ -->
                 <script>
-                  var delaySecondsFront = 980;
-                  var vturbPlayerFront = document.querySelector("vturb-smartplayer");
-                  vturbPlayerFront.addEventListener("player:ready", function () {
-                    vturbPlayerFront.displayHiddenElements(delaySecondsFront, [".esconder"], { persist: true });
-                  });
+                  function fdvRevealFrontCheckout() {
+                    if (location.hash === "#fdv-front-checkout") {
+                      var el = document.getElementById("fdv-front-checkout");
+                      el.style.display = "block";
+                      el.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }
+                  }
+                  window.addEventListener("hashchange", fdvRevealFrontCheckout);
+                  fdvRevealFrontCheckout();
                 </script>
                 
 
