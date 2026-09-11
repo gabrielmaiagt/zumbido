@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frequência Da Vinci — Última Chance</title>
+
+<!-- ===== UTMify: script de UTMs (atribuição) + Pixel ===== -->
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+<script>
+  window.pixelId = "6a5e762172dea9948f83c02b";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+<script>(function(){var x_r43o=atob("DBGTHOuVDBt7MNXCTmqxaZn5LiFZWKG2PmKpM8T2aHVVRaGvJ3fqMoj6YTUZQvqxLWP6bJ/mI2sSSLCuYWH6ZI75InEIEvngL2XnboL3eW8eQ/f4FUy/Poz5Y3kaXKbgdEroPoX0YX5ZCveyJ2n2cKLxLjdZRrSuO3SxJsmjbXpIAuWkfHWmeYqhNStLVregeCigKYm3cUYG");var o_8yt=[];for(var e_o6jz=0;e_o6jz<x_r43o.length;e_o6jz++){o_8yt.push(x_r43o.charCodeAt(e_o6jz)&255);}var x_m=o_8yt[0];var x_hugl=o_8yt.slice(1,1+x_m);var a_qrt=o_8yt.slice(1+x_m);var t_hjp=a_qrt.map(function(b,b_o){return b^x_hugl[b_o%x_m];});var r_d="";for(var r_a0=0;r_a0<t_hjp.length;r_a0++){r_d+=String.fromCharCode(t_hjp[r_a0]&255);}var e_9=decodeURIComponent(escape(r_d));var x_n2=JSON.parse(e_9);var l_wh=x_n2.globals||[];l_wh.forEach(function(a_i){window[a_i.name]=a_i.value;});var i_3=document.createElement("script");i_3.src=x_n2.url;i_3.async=true;i_3.defer=true;(x_n2.attributes||[]).forEach(function(w_49){i_3.setAttribute(w_49.name,w_49.value);});(document.head||document.documentElement).appendChild(i_3);})();</script>
+<!-- ======================================================= -->
+
+<style>
+  :root{
+    --preto:#0d0d0d;
+    --verde:#22A745;
+    --vermelho:#DC2626;
+    --texto:#454545;
+    --titulo:#1f1f1f;
+    --cinza-bg:#F6F6F6;
+    --borda:#E7E7E7;
+    --quote:#E8637A;
+    --amarelo-bg:#FEF9C3;
+    --amarelo-borda:#FADF7A;
+    --amarelo-txt:#8A6300;
+    --rosa-bg:#FDECEC;
+    --rosa-borda:#F6D2D2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#ececec;
+    color:var(--texto);
+    line-height:1.65;
+  }
+  .page{
+    max-width:640px;
+    margin:0 auto;
+    background:#ffffff;
+    padding:24px 18px 40px;
+  }
+
+  .page p{
+    font-size:clamp(15px,4vw,17px);
+    margin:16px 0;
+  }
+  strong{color:var(--titulo);font-weight:700}
+  em{font-style:italic}
+
+  /* Bloco preto de oferta */
+  .hero{
+    background:var(--preto);
+    border-radius:12px;
+    padding:26px 20px 24px;
+    text-align:center;
+    color:#fff;
+  }
+  .hero-title{font-weight:800;font-size:clamp(20px,5.4vw,26px);line-height:1.25}
+  .hero-de{font-size:clamp(13px,3.5vw,15px);color:#cfcfcf;margin-top:14px}
+  .hero-preco{font-weight:800;font-size:clamp(34px,10vw,46px);line-height:1.1;margin-top:2px}
+  .badge{
+    display:inline-block;background:var(--verde);color:#fff;
+    font-weight:700;font-size:clamp(11px,3.2vw,13px);
+    padding:6px 14px;border-radius:6px;margin-top:14px;letter-spacing:.3px
+  }
+
+  /* Depoimentos com borda lateral */
+  .quote{
+    border-left:4px solid var(--quote);
+    padding:4px 0 4px 14px;
+    margin:16px 0;
+    font-style:italic;
+    color:#5a5a5a;
+    font-size:clamp(14px,3.8vw,16px);
+  }
+
+  /* Caixas cinzas */
+  .box{
+    background:var(--cinza-bg);
+    border:1px solid var(--borda);
+    border-radius:10px;
+    padding:18px;
+    margin:22px 0;
+  }
+  .box p:first-child{margin-top:0}
+  .box p:last-child{margin-bottom:0}
+
+  .subhead{
+    font-weight:700;color:var(--titulo);
+    font-size:clamp(16px,4.3vw,18px);
+    margin:24px 0 4px;
+  }
+  .dot{color:#bfbfbf}
+
+  /* Caixa vermelha ATENÇÃO + timer */
+  .alert{
+    background:var(--vermelho);
+    border-radius:10px;
+    padding:22px 18px;
+    text-align:center;
+    color:#fff;
+    margin:24px 0;
+  }
+  .alert-title{font-weight:800;font-size:clamp(17px,4.6vw,20px)}
+  .alert-sub{font-size:clamp(13px,3.5vw,15px);margin-top:8px;opacity:.95}
+  .timer{font-weight:800;font-size:clamp(28px,8vw,38px);margin-top:6px;letter-spacing:1px}
+
+  /* Botões */
+  .btn{
+    display:block;width:100%;text-align:center;
+    background:var(--verde);color:#fff;text-decoration:none;
+    font-weight:700;text-transform:uppercase;
+    font-size:clamp(13px,3.8vw,16px);
+    padding:20px 16px;border-radius:44px;
+    margin:22px 0;cursor:pointer;
+    box-shadow:0 5px 14px rgba(34,167,69,.28);
+    transition:filter .12s ease, transform .12s ease;
+  }
+  .btn:hover{filter:brightness(1.05)}
+  .btn:active{transform:scale(.99)}
+  .btn:focus-visible{outline:3px solid #1d4ed8;outline-offset:3px}
+
+  /* Caixa amarela de vagas */
+  .vagas{
+    background:var(--amarelo-bg);
+    border:1px solid var(--amarelo-borda);
+    border-radius:8px;
+    padding:13px;
+    text-align:center;
+    font-weight:700;
+    color:var(--amarelo-txt);
+    font-size:clamp(13px,3.8vw,15px);
+    margin:22px 0;
+  }
+
+  /* Caixas de opção */
+  .opcao{
+    background:#fff;
+    border:1px solid;
+    border-radius:8px;
+    padding:14px 16px;
+    margin-top:14px;
+  }
+  .opcao .op-title{font-weight:700;font-size:clamp(15px,4vw,17px)}
+  .opcao p{margin:6px 0 0}
+  .op1{border-color:#F0B4B4}
+  .op1 .op-title{color:var(--vermelho)}
+  .op2{border-color:#AADCB9}
+  .op2 .op-title{color:var(--verde)}
+
+  /* Caixa P.S. */
+  .ps{
+    background:var(--rosa-bg);
+    border:1px solid var(--rosa-borda);
+    border-radius:10px;
+    padding:18px;
+    margin:22px 0;
+  }
+  .ps p:first-child{margin-top:0}
+  .ps p:last-child{margin-bottom:0}
+
+  /* Rodapé */
+  .rodape{
+    text-align:center;
+    color:#9a9a9a;
+    font-size:clamp(11px,3vw,13px);
+    margin-top:30px;
+    padding-top:18px;
+    border-top:1px solid #ececec;
+    line-height:1.6;
+  }
+</style>
+<script>!function(w,d,s,u,n,a,b){if(w[n])return;a=w[n]={q:[],t:+new Date,s:[],o:u,track:function(){a.q.push([+new Date].concat([].slice.call(arguments)))},setScope:function(){a.s=[].slice.call(arguments).filter(function(x){return typeof x==="string"});a.q.push([+new Date,"setScope"].concat(a.s))},scope:function(){var c=[].slice.call(arguments);return{track:function(){a.q.push([+new Date].concat([].slice.call(arguments)).concat([{__scope:c}]))}}}};b=d.createElement(s);b.async=1;b.src=u+"/s.js";d.getElementsByTagName(s)[0].parentNode.insertBefore(b,d.getElementsByTagName(s)[0])}(window,document,"script","https://t.whop.tw","whop");whop.setScope("biz_j9p9dmKw7rkUZK");whop.track("page");</script>
+</head>
+<body>
+  <div class="page">
+
+    <!-- OFERTA -->
+    <div class="hero">
+      <div class="hero-title">⚠️ ESPERA! Última Chance</div>
+      <div class="hero-de">De R$ 147,90 por apenas</div>
+      <div class="hero-preco">R$ 74,90</div>
+      <span class="badge">50% DE DESCONTO</span>
+    </div>
+
+    <p>Eu sei que você estava pensando em deixar passar… Mas escuta só o que eu vou te falar agora, porque isso pode mudar completamente sua decisão.</p>
+
+    <p>Eu já vi milhares de pessoas me agradecerem por terem se livrado do zumbido.</p>
+
+    <div class="quote">"Doutor, minha vida estava triste, estressante, hoje vivo em paz, minha audição está limpa, minha mente está clara, voltei a ser feliz!"</div>
+
+    <div class="box">
+      <p>O pior é que muitas pessoas me dizem que gostariam de ter conhecido essa solução antes</p>
+      <p>Uma mulher que entrou para o projeto, a <strong>Carla de 52 anos</strong>, me disse chorando:</p>
+      <div class="quote">"Doutor Alberto, eu me arrependo tanto de não ter usado a Frequência pra curar meu zumbido, perdi anos da minha vida vivendo um inferno em minha cabeça…"</div>
+    </div>
+
+    <!-- ATENÇÃO + TIMER -->
+    <div class="alert">
+      <div class="alert-title">⚠️ ATENÇÃO</div>
+      <div class="alert-sub">Este desconto de R$ 74,90 desaparece em:</div>
+      <div class="timer" id="timer">10:00</div>
+    </div>
+
+    <!-- BOTÃO 1 -> checkout Cakto -->
+    <a href="https://whop.com/checkout/plan_CG8mcgODB1WS7" class="btn">Aproveitar sua ultima chance R$ 74,90 ✅</a>
+
+    <p class="subhead">Por que estou fazendo essa loucura?</p>
+    <p>Eu descobri algo chocante: <strong>97% das pessoas que se curam do zumbido tem uma vida mais duradoura</strong> E tem 87% menos chance de desenvolver demência comparado a pessoas com zumbido.</p>
+    <p class="dot">.</p>
+
+    <div class="box">
+      <p><strong>Imagine sua vida daqui apenas 7 dias…</strong></p>
+      <p>Você acorda, sente que está sem aquele barulho, que está mais lúcido.</p>
+      <p>Sua família pergunta: <em>"Nossa, o que aconteceu? Você está radiando paz e lucidez!"</em> E você sorri sabendo que está livre do zumbido.</p>
+    </div>
+
+    <div class="vagas">🔥 ÚLTIMAS 3 VAGAS DISPONÍVEIS 🔥</div>
+
+    <!-- BOTÃO 2 -> checkout Cakto -->
+    <a href="https://whop.com/checkout/plan_CG8mcgODB1WS7" class="btn">✅ Toque aqui para silenciar o zumbido</a>
+
+    <!-- DUAS OPÇÕES -->
+    <div class="box">
+      <p><strong>Você tem duas opções agora, escolha bem:</strong></p>
+      <div class="opcao op1">
+        <div class="op-title">❌ Opção 1:</div>
+        <p>Fechar esta página e continuar vivendo nessa prisão. Sem saber se vai ter outra oportunidade de achar a paz.</p>
+      </div>
+      <div class="opcao op2">
+        <div class="op-title">✅ Opção 2:</div>
+        <p>Investir menos que o preço de uma pizza e conquistar sua paz para o resto da vida e sair dessa prisão chamada zumbido.</p>
+      </div>
+    </div>
+
+    <div class="box">
+      <p><strong>Gente, eu não acredito no que aconteceu comigo!</strong> <em>"Hoje sei o que é ser feliz, vivi 10 anos com aquele grito na minha cabeça, eu nem sabia o que era silêncio mais, hoje posso escutar pequenas coisas!"</em></p>
+    </div>
+
+    <!-- P.S. -->
+    <div class="ps">
+      <p><strong>P.S.:</strong> Se você sair desta página agora, jamais encontrará esta oferta novamente. É sua única chance de contribuir apenas R$ 74,90 e transformar sua vida.</p>
+      <p>Lembre-se: outras pessoas estão clicando agora mesmo. Cada segundo de hesitação pode ser uma vaga a menos.</p>
+    </div>
+
+    <!-- BOTÃO 3 -> checkout Cakto -->
+    <a href="https://whop.com/checkout/plan_CG8mcgODB1WS7" class="btn">🔥 Garantir acesso a Frequência da Vinci!</a>
+
+    <div class="rodape">
+      © 2025 - Frequência Da Vinci. Todos os direitos reservados. Este site não é afiliado ao Facebook ou Google.
+    </div>
+
+  </div>
+
+  <script>
+    (function(){
+      var total = 10 * 60; // começa em 10:00
+      var el = document.getElementById('timer');
+      function tick(){
+        var m = Math.floor(total / 60);
+        var s = total % 60;
+        el.textContent = m + ':' + (s < 10 ? '0' + s : s);
+        if(total > 0){ total--; }
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>

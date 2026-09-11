@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frequências da Vinci — Sua Área</title>
+<style>
+  :root{
+    --bg:hsl(220 20% 7%);
+    --card:hsl(220 18% 11%);
+    --card-2:hsl(220 16% 14%);
+    --border:hsl(220 14% 20%);
+    --fg:hsl(210 20% 90%);
+    --muted:hsl(215 14% 55%);
+    --primary:hsl(195 100% 42%);
+    --primary-soft:hsl(195 100% 42% / .12);
+    --accent:hsl(190 90% 70%);
+    --green:hsl(160 84% 39%);
+    --green-hover:hsl(160 84% 44%);
+    --lock:#f5c542;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--bg);color:var(--fg);line-height:1.6;
+    min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block}
+
+  /* Header */
+  .header{position:sticky;top:0;z-index:50;background:hsl(220 20% 7% / .9);backdrop-filter:blur(8px)}
+  .header-in{max-width:1200px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:center;position:relative}
+  .brand{color:var(--primary);font-weight:800;font-size:clamp(18px,4.5vw,22px);letter-spacing:.3px;cursor:pointer}
+  .sair{position:absolute;right:20px;display:inline-flex;align-items:center;gap:6px;background:var(--card-2);color:var(--fg);
+    border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .15s}
+  .sair:hover{opacity:.85}
+  .header-line{height:2px;background:var(--primary)}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:28px 20px 60px}
+
+  /* Section header */
+  h1.page-title{font-size:clamp(24px,6vw,34px);font-weight:800;margin-bottom:28px}
+  .sec{margin-bottom:46px}
+  .sec-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-head .ico{width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center}
+  .sec-head h2{font-size:clamp(17px,4.5vw,20px);font-weight:800}
+  .sec-head .rule{flex:1;height:1px;background:var(--border);margin-left:6px}
+
+  /* Card grids */
+  .row{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+  .row::-webkit-scrollbar{height:6px}
+  .row::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+
+  /* Disponivel cards */
+  .disp-card{width:210px;min-width:210px;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}
+  .disp-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.4)}
+  .disp-card.feat{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary),0 0 22px hsl(195 100% 42% / .25)}
+  .disp-cover{height:150px;position:relative;overflow:hidden;background:hsl(220 40% 10%)}
+  .disp-cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .disp-card.feat .disp-cover{background:linear-gradient(135deg,hsl(195 80% 30%),hsl(210 60% 16%))}
+  .disp-cover .badge-top{position:absolute;top:8px;left:8px;right:8px;text-align:center;font-size:10px;font-weight:800;letter-spacing:.5px;color:var(--primary);background:hsl(220 20% 7% / .55);border-radius:6px;padding:3px}
+  .disp-cover .emoji{font-size:40px;opacity:.9}
+  .disp-body{padding:12px 12px 14px;text-align:center}
+  .disp-body .t{font-size:12px;font-weight:800;letter-spacing:.4px;color:var(--primary)}
+  .disp-body .s{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+  .disp-body .cta{font-size:11px;font-weight:800;color:var(--green);margin-top:8px;display:inline-block}
+
+  /* Bonus */
+  .bonus-card{width:190px;min-width:190px;border-radius:14px;overflow:hidden;position:relative;cursor:pointer;transition:transform .15s}
+  .bonus-card:hover{transform:translateY(-3px)}
+  .bonus-cover{height:250px;overflow:hidden;border:1px solid var(--border);background:hsl(230 40% 9%)}
+  .bonus-cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .bonus-cover .bico{font-size:38px}
+  .bonus-cover .bt{font-weight:800;font-size:15px;line-height:1.25}
+  .bonus-cover .btag{font-size:11px;color:var(--accent);letter-spacing:.4px;text-transform:uppercase;font-weight:700}
+  .bonus-flag{position:absolute;top:10px;right:10px;background:var(--green);color:#062015;font-size:9px;font-weight:800;padding:3px 8px;border-radius:20px;letter-spacing:.4px}
+
+  /* Esteira (locked) */
+  .lock-card{width:170px;min-width:170px;border-radius:14px;overflow:hidden;position:relative;cursor:pointer;background:var(--card);border:1px solid var(--border);transition:transform .15s,box-shadow .15s}
+  .lock-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.45)}
+  .lock-thumb{position:relative;aspect-ratio:1/1;overflow:hidden}
+  .lock-thumb img{width:100%;height:100%;object-fit:cover;filter:brightness(.62)}
+  .lock-badge{position:absolute;top:8px;right:8px;width:26px;height:26px;background:var(--lock);border-radius:7px;display:flex;align-items:center;justify-content:center}
+  .lock-badge svg{width:14px;height:14px}
+  .lock-info{padding:10px 11px 12px}
+  .lock-info .lt{font-size:12.5px;font-weight:700;line-height:1.3}
+  .lock-info .lp{margin-top:7px;display:flex;align-items:center;gap:7px}
+  .lock-info .lp .now{color:var(--green);font-weight:800;font-size:15px}
+  .lock-info .lp .old{color:var(--muted);text-decoration:line-through;font-size:12px}
+
+  /* Veja tambem */
+  .veja-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+  .veja-card{aspect-ratio:1/1;border-radius:14px;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:transform .15s;background:hsl(225 30% 10%)}
+  .veja-card img{width:100%;height:100%;object-fit:cover;display:block}
+  .veja-card:hover{transform:translateY(-3px)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 12px;text-align:center}
+  .stat .v{font-size:clamp(22px,6vw,30px);font-weight:800;color:var(--primary)}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:4px}
+
+  /* ===== Product page ===== */
+  .back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:600;font-size:14px;margin-bottom:20px;cursor:pointer;background:none;border:none}
+  .back:hover{color:var(--fg)}
+  .prod{max-width:760px;margin:0 auto}
+  .prod-hero{border-radius:18px;overflow:hidden;border:1px solid var(--border);margin-bottom:24px}
+  .prod-hero img{width:100%;aspect-ratio:16/9;object-fit:cover}
+  .prod h1{font-size:clamp(24px,6vw,34px);font-weight:800;line-height:1.2}
+  .prod .sub{color:var(--accent);font-size:clamp(15px,4vw,18px);margin-top:10px}
+  .block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-top:20px}
+  .block h3{font-size:16px;font-weight:800;color:var(--primary);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .block p{color:var(--fg);opacity:.92;font-size:15.5px}
+  .price-card{background:linear-gradient(150deg,var(--card-2),var(--card));border:1px solid var(--primary);border-radius:16px;padding:26px 22px;margin-top:26px;text-align:center}
+  .price-card .old{color:var(--muted);text-decoration:line-through;font-size:16px}
+  .price-card .now{font-size:clamp(38px,11vw,52px);font-weight:800;color:#fff;line-height:1.05;margin:2px 0 6px}
+  .price-card .save{display:inline-block;background:var(--green);color:#052014;font-weight:800;font-size:12px;padding:5px 14px;border-radius:20px;letter-spacing:.3px}
+  .buy{display:block;width:100%;margin-top:20px;background:var(--green);color:#fff;text-align:center;font-weight:800;
+    font-size:clamp(15px,4vw,18px);padding:20px 16px;border-radius:14px;text-transform:uppercase;letter-spacing:.3px;
+    box-shadow:0 8px 24px hsl(160 84% 39% / .35);transition:background .15s,transform .1s}
+  .buy:hover{background:var(--green-hover)}
+  .buy:active{transform:scale(.99)}
+  .guarantee{text-align:center;color:var(--muted);font-size:13px;margin-top:14px}
+
+  @media(max-width:520px){
+    .stats{grid-template-columns:repeat(3,1fr)}
+    .stat .l{font-size:10.5px}
+  }
+
+  /* botão de compra desativado */
+  .buy-off{background:hsl(220 12% 26%);color:hsl(210 12% 70%);cursor:default;box-shadow:none}
+  .tagline{display:inline-block;background:var(--primary-soft);color:var(--accent);font-weight:700;font-size:13px;padding:5px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px}
+
+  /* Player de frequência */
+  .player{background:linear-gradient(160deg,var(--card-2),var(--card));border:1px solid var(--primary);border-radius:18px;padding:26px 22px 24px;margin:24px 0;text-align:center}
+  .player-name{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase}
+  .player-freq{font-size:clamp(34px,10vw,48px);font-weight:800;color:#fff;line-height:1.1;margin:4px 0 16px}
+  .player-play{width:84px;height:84px;border-radius:50%;border:none;cursor:pointer;background:var(--primary);color:#04222c;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 26px hsl(195 100% 42% / .45);transition:transform .12s}
+  .player-play:active{transform:scale(.95)}
+  .ctrl{text-align:left;margin-top:20px}
+  .ctrl label{display:block;font-size:13px;color:var(--muted);font-weight:600;margin-bottom:7px}
+  .ctrl input[type=range]{width:100%;accent-color:var(--primary);height:6px}
+  .player-hint{font-size:12px;color:var(--muted);margin-top:18px}
+  .player-dl{margin-top:12px;width:100%;background:transparent;border:1px solid var(--primary);color:var(--accent);font-weight:700;padding:14px;border-radius:12px;cursor:pointer;transition:background .15s}
+  .player-dl:hover{background:var(--primary-soft)}
+  .player-dl:disabled{opacity:.6;cursor:default}
+  .chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:20px}
+  .chip{background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:12px 10px;cursor:pointer;color:var(--fg);transition:border-color .15s,transform .1s;text-align:center}
+  .chip:hover{border-color:var(--primary)}
+  .chip:active{transform:scale(.98)}
+  .chip b{display:block;font-size:14px}
+  .chip span{display:block;font-size:11px;color:var(--muted);margin-top:3px}
+
+  /* Guia em passos */
+  .steps{display:flex;flex-direction:column;gap:16px}
+  .step h4{color:var(--accent);font-size:15px;font-weight:800;margin-bottom:6px}
+  .step p{color:var(--fg);opacity:.9;font-size:15px}
+
+  /* Depoimentos */
+  .dep-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:6px}
+  .dep-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px}
+  .dep-stars{color:#f5c542;font-size:15px;letter-spacing:2px}
+  .dep-text{color:var(--fg);opacity:.92;font-size:15px;margin:12px 0 16px;line-height:1.6}
+  .dep-who b{display:block;color:#fff;font-weight:700}
+  .dep-who span{font-size:13px;color:var(--muted)}
+
+  /* Modal suporte */
+  .modal-back{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-back.open{display:flex}
+  .modal{position:relative;max-width:440px;width:100%;background:hsl(220 22% 9%);border:1px solid var(--border);border-radius:16px;padding:26px 24px}
+  .modal-x{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer}
+  .modal-title{color:var(--primary);font-weight:800;font-size:18px}
+  .modal-sub{color:var(--muted);font-size:14px;margin-top:8px;line-height:1.5}
+  .modal-emailbox{background:hsl(220 22% 12%);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;margin:18px 0}
+  .modal-emaillabel{color:var(--muted);font-size:11px;letter-spacing:1px;font-weight:700}
+  .modal-email{color:var(--accent);font-weight:700;font-size:clamp(15px,4.4vw,19px);margin-top:6px;word-break:break-all}
+  .modal-copy{width:100%;background:var(--primary);color:#04222c;font-weight:800;border:none;border-radius:10px;padding:15px;cursor:pointer;transition:filter .15s}
+  .modal-copy:hover{filter:brightness(1.06)}
+</style>
+<script>!function(w,d,s,u,n,a,b){if(w[n])return;a=w[n]={q:[],t:+new Date,s:[],o:u,track:function(){a.q.push([+new Date].concat([].slice.call(arguments)))},setScope:function(){a.s=[].slice.call(arguments).filter(function(x){return typeof x==="string"});a.q.push([+new Date,"setScope"].concat(a.s))},scope:function(){var c=[].slice.call(arguments);return{track:function(){a.q.push([+new Date].concat([].slice.call(arguments)).concat([{__scope:c}]))}}}};b=d.createElement(s);b.async=1;b.src=u+"/s.js";d.getElementsByTagName(s)[0].parentNode.insertBefore(b,d.getElementsByTagName(s)[0])}(window,document,"script","https://t.whop.tw","whop");whop.setScope("biz_j9p9dmKw7rkUZK");whop.track("page");</script>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-in">
+      <div class="brand" onclick="location.hash=''">Frequências da Vinci</div>
+      <button class="sair" onclick="alert('Sessão encerrada.')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sair
+      </button>
+    </div>
+    <div class="header-line"></div>
+  </header>
+
+  <div id="app" class="wrap"></div>
+
+<script>
+const DATA = {"produtos": [{"title": "Frequências Alpha — Relaxamento Profundo", "subtitle": "Ondas sonoras Alpha que acalmam o sistema nervoso e reduzem a percepção do zumbido em minutos", "image": "images/relaxamento-profundo.png", "howItWorks": "As frequências Alpha (8-12 Hz) são ondas sonoras calibradas que estimulam o cérebro a entrar em estado de relaxamento profundo. Quando o sistema nervoso relaxa, a percepção do zumbido diminui naturalmente, proporcionando alívio imediato.", "whySpecial": "Dr. Alberto Campos identificou que pacientes com zumbido possuem hiperatividade neural no córtex auditivo. As frequências Alpha acalmam essa hiperatividade, oferecendo alívio sem medicamentos.", "priceOriginal": "R$ 197,00", "priceNow": "R$ 47", "savings": "R$ 150,00", "ctaText": "QUERO OUVIR AS FREQUÊNCIAS ALPHA", "ctaUrl": "https://whop.com/checkout/ch_BH2hoccVfhPYW9b/", "slug": "frequencias-alpha"}, {"title": "Protocolo Neuro-Auditivo", "subtitle": "Reprogramação cerebral com estímulos sonoros que retreinam o cérebro a filtrar o zumbido", "image": "images/neuro-auditivo.png", "howItWorks": "O protocolo utiliza princípios de neuroplasticidade para retreinar o cérebro a ignorar o sinal do zumbido. Com sessões diárias de estímulos sonoros específicos, o cérebro aprende a filtrar o ruído interno, reduzindo progressivamente a percepção do zumbido.", "whySpecial": "Baseado em pesquisas de neurociência avançada, este protocolo utiliza técnicas que clínicas especializadas cobram milhares de reais. Dr. Alberto Campos adaptou o método para uso domiciliar com resultados comparáveis.", "priceOriginal": "R$ 297,00", "priceNow": "R$ 67", "savings": "R$ 230,00", "ctaText": "QUERO O PROTOCOLO NEURO-AUDITIVO", "ctaUrl": "https://whop.com/checkout/ch_cUeRPUN0NCBzk8k/", "slug": "protocolo-neuro-auditivo"}, {"title": "Terapia do Sono Profundo", "subtitle": "Frequências Delta e Theta que induzem sono reparador mesmo com o zumbido ativo", "image": "images/sono-profundo.png", "howItWorks": "Frequências Delta (0.5-4 Hz) e Theta (4-8 Hz) são emitidas durante o sono, induzindo ondas cerebrais que promovem o sono profundo. Os sons mascaram o zumbido e reprogramam o ciclo do sono, proporcionando descanso verdadeiro.", "whySpecial": "Dr. Alberto Campos descobriu que a privação de sono amplifica o zumbido em até 300%. Ao restaurar o sono profundo, o cérebro naturalmente reduz a intensidade do zumbido durante o dia.", "priceOriginal": "R$ 197,00", "priceNow": "R$ 47", "savings": "R$ 150,00", "ctaText": "QUERO DORMIR EM PAZ", "ctaUrl": "https://whop.com/checkout/plan_1xMrX5f6zidfP", "slug": "terapia-sono"}, {"title": "Protocolo Anti-Zumbido Express", "subtitle": "Técnica de emergência com frequências que reduzem o zumbido em minutos nos momentos de crise", "image": "images/anti-zumbido.png", "howItWorks": "Um protocolo de 3 passos que você aplica nos momentos de crise: respiração guiada, frequência de mascaramento personalizada e exercício de atenção dirigida. A combinação acalma o sistema nervoso e reduz a percepção do zumbido imediatamente.", "whySpecial": "Dr. Alberto Campos desenvolveu este protocolo para pacientes que precisavam de alívio imediato enquanto o tratamento principal fazia efeito. Funciona desde a primeira aplicação.", "priceOriginal": "R$ 147,00", "priceNow": "R$ 37", "savings": "R$ 110,00", "ctaText": "QUERO ALÍVIO IMEDIATO", "ctaUrl": "https://whop.com/checkout/plan_ODj7wB2PrVe4S", "slug": "anti-zumbido-express"}, {"title": "Ondas de Silêncio Mental", "subtitle": "Frequências especiais que treinam o cérebro a criar zonas de silêncio mesmo com o zumbido presente", "image": "images/silencio-mental.png", "howItWorks": "Utilizando princípios de meditação guiada combinados com frequências binaurais, o programa treina seu cérebro a criar 'janelas de silêncio' — momentos em que o zumbido simplesmente desaparece da percepção consciente.", "whySpecial": "Dr. Alberto Campos percebeu que o zumbido é amplificado pela atenção. Ao treinar o cérebro a desviar o foco, a percepção do som diminui naturalmente, criando períodos cada vez maiores de silêncio.", "priceOriginal": "R$ 197,00", "priceNow": "R$ 47", "savings": "R$ 150,00", "ctaText": "QUERO O SILÊNCIO MENTAL", "ctaUrl": "https://whop.com/checkout/ch_3cCJOMT0YqOHQuy/", "slug": "ondas-silencio"}, {"title": "Treinamento de Concentração Neural", "subtitle": "Recupere o foco e a concentração que o zumbido roubou de você com estímulos cerebrais direcionados", "image": "images/concentracao-neural.png", "howItWorks": "Um treinamento que combina frequências Beta (13-30 Hz) com exercícios cognitivos para fortalecer as redes neurais de atenção. Com prática diária, seu cérebro aprende a filtrar o zumbido e manter o foco no que importa.", "whySpecial": "Baseado em neurofeedback clínico e adaptado por Dr. Alberto Campos para uso domiciliar, este treinamento restaura a capacidade cognitiva que o zumbido compromete — especialmente a concentração e memória de trabalho.", "priceOriginal": "R$ 247,00", "priceNow": "R$ 57", "savings": "R$ 190,00", "ctaText": "QUERO RECUPERAR MINHA CONCENTRAÇÃO", "ctaUrl": "https://whop.com/checkout/ch_v4IjOh8iiSEvGWE/", "slug": "concentracao-neural"}, {"title": "Masterclass Neurossensorial", "subtitle": "O treinamento completo que integra todas as técnicas de frequências para o tratamento definitivo do zumbido", "image": "images/masterclass.png", "howItWorks": "Um curso avançado que combina todas as técnicas do programa — frequências Alpha, Delta, Theta, binaurais, mascaramento e neuroplasticidade — em um protocolo unificado e otimizado para resultados máximos.", "whySpecial": "Compilado a partir de anos de prática clínica do Dr. Alberto Campos, esta masterclass reúne o conhecimento completo sobre tratamento auditivo por frequências em um formato acessível e prático.", "priceOriginal": "R$ 297,00", "priceNow": "R$ 67", "savings": "R$ 230,00", "ctaText": "QUERO O TRATAMENTO COMPLETO", "ctaUrl": "https://whop.com/checkout/plan_rVVNCfshM4gEP", "slug": "masterclass-neurossensorial"}, {"title": "Comunidade Silêncio Interior", "subtitle": "Mais de 5.000 pessoas compartilhando experiências e conquistas no tratamento do zumbido", "image": "images/comunidade.png", "howItWorks": "A Comunidade reúne milhares de pessoas na mesma jornada de tratamento do zumbido. Compartilhe resultados, tire dúvidas e mantenha-se motivado com o apoio de quem entende o que você sente.", "whySpecial": "Pessoas que participam da comunidade têm resultados significativamente melhores porque a motivação do grupo e a troca de experiências potencializam a adesão ao protocolo.", "priceOriginal": "R$ 197,00", "priceNow": "R$ 47", "savings": "R$ 150,00", "ctaText": "QUERO ENTRAR NA COMUNIDADE", "ctaUrl": "https://whop.com/checkout/plan_rpGOHkR74qtiS", "slug": "comunidade"}], "disponivel": [{"title": "Sessão Exclusiva", "subtitle": "Consulta com Dr. Alberto Campos", "cta": "ABRIR AGORA →", "href": "/up1-acompanhamento/", "featured": true, "image": "images/acompanhamento-individual.png"}, {"title": "Sua Frequência Personalizada", "subtitle": "Clique aqui para acessar seu protocolo sonoro", "cta": "ACESSAR →", "href": "#/frequencia-personalizada", "image": "images/frequencias-davinci.png"}], "bonus": [{"title": "Eliminador de Névoa Mental", "tag": "Clareza total em minutos", "image": "images/nevoa-mental.png", "route": "eliminador-nevoa"}, {"title": "Guia dos Alimentos que Disparam o Zumbido", "tag": "", "image": "images/guia-alimentos.png", "route": "guia-alimentos"}, {"title": "Interruptor de Emergência", "tag": "Pare o zumbido em 7 segundos", "image": "images/interruptor.png", "route": "interruptor-emergencia"}], "veja": [{"title": "Depoimentos Reais", "image": "images/depoimentos.png", "href": "#", "mode": "route", "target": "#/depoimentos"}, {"title": "Garantia Total", "image": "images/garantia.png", "href": "#", "mode": "route", "target": "#/garantia"}, {"title": "Suporte 24 Horas", "image": "images/suporte.png", "href": "#", "mode": "modal", "target": "suporte"}], "stats": [{"v": "5.247", "l": "Pessoas com Alívio"}, {"v": "4.128", "l": "Resultados em 7 Dias"}, {"v": "98%", "l": "Taxa de Satisfação"}], "depoimentos": [{"name": "Mariana Silva", "city": "São Paulo, SP", "text": "No 3º dia ouvindo as frequências, percebi que o zumbido estava mais baixo. Depois de 2 semanas, quase não percebo mais. Voltei a dormir em paz."}, {"name": "Roberto Almeida", "city": "Rio de Janeiro, RJ", "text": "Sofri com zumbido por 8 anos. Já tinha desistido quando encontrei o Dr. Alberto. As frequências mudaram tudo em menos de uma semana."}, {"name": "Cláudia Oliveira", "city": "Belo Horizonte, MG", "text": "A ansiedade causada pelo zumbido estava destruindo minha vida. Com o protocolo, recuperei minha paz mental e minha qualidade de vida."}, {"name": "José Roberto", "city": "Porto Alegre, RS", "text": "Tinha vergonha de falar sobre o zumbido. Achavam que era frescura. O protocolo do Dr. Alberto provou que existe solução real."}, {"name": "Ana Paula Santos", "city": "Recife, PE", "text": "Não conseguia me concentrar no trabalho por causa do som constante. Depois das frequências, meu foco voltou completamente."}, {"name": "Paulo Mendes", "city": "Brasília, DF", "text": "Meu sono era terrível. O zumbido não me deixava dormir. Com a terapia do sono profundo, durmo a noite inteira sem acordar."}], "guia": {"PASSO 1 — Preparação do Ambiente": "Encontre um ambiente silencioso e confortável. Reduza a iluminação — luz suave ou escuridão total. Desligue notificações do celular. Sente-se confortavelmente ou deite-se. Os primeiros 2 minutos são de respiração consciente: inspire por 4 segundos, segure por 4, expire por 6. Isso prepara o sistema nervoso para receber as frequências.", "PASSO 2 — Iniciar as Frequências": "Coloque os fones de ouvido e inicie a sessão do dia. O volume deve estar em um nível confortável — você deve ouvir as frequências claramente, mas sem que sejam altas. Se o zumbido for audível sobre a frequência, isso é normal e esperado. Não aumente o volume para ", "PASSO 3 — Manter o Foco Suave": "Durante a sessão, mantenha os olhos fechados e dirija sua atenção para as frequências, não para o zumbido. Quando perceber que está focando no zumbido, gentilmente redirecione a atenção para o som terapêutico. Não lute contra o zumbido — apenas observe e redirecione. Essa prática fortalece as conexões neurais de filtragem.", "PASSO 4 — Finalização": "Ao final da sessão, permaneça em silêncio por 2 minutos com os fones ainda nos ouvidos mas sem som. Observe o silêncio. Muitas pessoas notam que o zumbido está mais baixo imediatamente após a sessão."}, "bonus_content": {"eliminador-nevoa": {"title": "Eliminador de Névoa Mental", "tag": "Clareza total em minutos", "desc": "O zumbido constante consome energia mental e deixa o cérebro em estado de névoa: dificuldade de concentração, memória fraca e cansaço mental. Este protocolo combina exercícios de respiração, foco e frequências específicas para clarear a mente em poucos minutos, devolvendo a lucidez que o zumbido rouba.", "file": "downloads/eliminador-nevoa-mental.pdf"}, "guia-alimentos": {"title": "Guia dos Alimentos que Disparam o Zumbido", "tag": "O que evitar e o que incluir", "desc": "Certos alimentos amplificam o zumbido ao afetar a circulação e a pressão no ouvido interno. Este guia mostra, de forma prática, a lista dos alimentos que pioram o zumbido e a lista dos que ajudam a acalmar o sistema auditivo, para você ajustar sua rotina alimentar e potencializar os resultados das frequências.", "file": "downloads/guia-alimentos.pdf"}, "interruptor-emergencia": {"title": "Interruptor de Emergência", "tag": "Pare o zumbido em 7 segundos", "desc": "O Interruptor de Emergência é uma técnica rápida e poderosa para os momentos de crise, quando o zumbido está insuportável e você precisa de alívio imediato. Este protocolo foi desenvolvido para ser usado em qualquer lugar, a qualquer momento, ativando um reflexo de alívio em segundos.", "file": "downloads/interruptor-emergencia.pdf"}}};
+
+const ICON = {
+  check:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#22c55e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+  gift:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  star:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  lockSm:'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1300" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'
+};
+
+const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function homeHTML(){
+  const disp = DATA.disponivel.map(d=>`
+    <div class="disp-card ${d.featured?'feat':''}" onclick="window.open('${d.href}','_self')">
+      <div class="disp-cover">
+        ${d.featured?'<div class="badge-top">🎧 SESSÃO EXCLUSIVA</div>':''}
+        <img src="${d.image}" alt="${esc(d.title)}" loading="lazy">
+      </div>
+      <div class="disp-body">
+        <div class="t">${esc(d.title)}</div>
+        <div class="s">${esc(d.subtitle)}</div>
+        <span class="cta">${esc(d.cta)}</span>
+      </div>
+    </div>`).join('');
+
+  const bonus = DATA.bonus.map(b=>`
+    <div class="bonus-card" onclick="location.hash='#/${b.route}'">
+      <div class="bonus-flag">BÔNUS LIBERADO</div>
+      <div class="bonus-cover">
+        <img src="${b.image}" alt="${esc(b.title)}" loading="lazy">
+      </div>
+    </div>`).join('');
+
+  const esteira = DATA.produtos.map(p=>`
+    <div class="lock-card" onclick="location.hash='#/${p.slug}'">
+      <div class="lock-thumb">
+        <img src="${p.image}" alt="${esc(p.title)}" loading="lazy">
+        <div class="lock-badge">${ICON.lockSm}</div>
+      </div>
+      <div class="lock-info">
+        <div class="lt">${esc(p.title)}</div>
+        <div class="lp"><span class="now">${esc(p.priceNow)}</span><span class="old">${esc(p.priceOriginal)}</span></div>
+      </div>
+    </div>`).join('');
+
+  const veja = DATA.veja.map(v=>`<div class="veja-card" onclick="${v.mode==='modal'?`openSuporte()`:`location.hash='${v.target}'`}"><img src="${v.image}" alt="${esc(v.title)}" loading="lazy"></div>`).join('');
+
+  const stats = DATA.stats.map(s=>`<div class="stat"><div class="v">${esc(s.v)}</div><div class="l">${esc(s.l)}</div></div>`).join('');
+
+  return `
+    <h1 class="page-title">Bem-vindo ao seu espaço de silêncio!</h1>
+
+    <section class="sec">
+      <div class="sec-head"><span class="ico">${ICON.check}</span><h2>Já disponível para você</h2><span class="rule"></span></div>
+      <div class="row">${disp}</div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><span class="ico">${ICON.gift}</span><h2>Bônus exclusivos para você</h2><span class="rule"></span></div>
+      <div class="row">${bonus}</div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><span class="ico">${ICON.lock}</span><h2>Conteúdos que você pode desbloquear</h2><span class="rule"></span></div>
+      <div class="row">${esteira}</div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><span class="ico">${ICON.star}</span><h2>Veja também</h2><span class="rule"></span></div>
+      <div class="veja-grid">${veja}</div>
+    </section>
+
+    <section class="sec">
+      <div class="stats">${stats}</div>
+    </section>
+  `;
+}
+
+function productHTML(p){
+  return `
+  <div class="prod">
+    <button class="back" onclick="location.hash=''">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar
+    </button>
+
+    <div class="prod-hero"><img src="${p.image}" alt="${esc(p.title)}"></div>
+
+    <h1>${esc(p.title)}</h1>
+    <p class="sub">${esc(p.subtitle)}</p>
+
+    <div class="block">
+      <h3>Como funciona</h3>
+      <p>${esc(p.howItWorks)}</p>
+    </div>
+
+    <div class="block">
+      <h3>Por que é especial</h3>
+      <p>${esc(p.whySpecial)}</p>
+    </div>
+
+    <div class="price-card">
+      <div class="old">De ${esc(p.priceOriginal)}</div>
+      <div class="now">${esc(p.priceNow)}</div>
+      <span class="save">Economia de ${esc(p.savings)}</span>
+      ${p.ctaUrl ? `<a class="buy" href="${p.ctaUrl}" target="_blank" rel="noopener">${esc(p.ctaText)}</a>` : `<span class="buy buy-off">Em breve</span>`}
+      <div class="guarantee">🔒 Compra segura • Garantia de 7 dias</div>
+    </div>
+  </div>`;
+}
+
+
+/* ===== Página: Frequência Personalizada (player + guia) ===== */
+const FP = {ac:null, osc:null, gain:null, playing:false, freq:432, vol:0.35};
+const PRESETS = [
+  {n:"Calmante", f:432, d:"Acalma o sistema nervoso"},
+  {n:"Cura", f:528, d:"Frequência de reparação"},
+  {n:"Alívio", f:396, d:"Reduz a tensão"},
+  {n:"Foco", f:639, d:"Clareza e concentração"}
+];
+function fpEnsure(){ if(!FP.ac) FP.ac = new (window.AudioContext||window.webkitAudioContext)(); }
+function fpStop(){ if(FP.osc){ try{FP.osc.stop()}catch(e){} FP.osc.disconnect(); FP.osc=null; } FP.playing=false; fpBtn(); }
+function fpToggle(){
+  if(FP.playing){ fpStop(); return; }
+  fpEnsure(); if(FP.ac.state==='suspended') FP.ac.resume();
+  FP.osc = FP.ac.createOscillator(); FP.gain = FP.ac.createGain();
+  FP.osc.type='sine'; FP.osc.frequency.value=FP.freq;
+  FP.gain.gain.value=0; FP.osc.connect(FP.gain).connect(FP.ac.destination); FP.osc.start();
+  FP.gain.gain.linearRampToValueAtTime(FP.vol, FP.ac.currentTime+0.4);
+  FP.playing=true; fpBtn();
+}
+function fpBtn(){ var b=document.getElementById('fp-btn'); if(b) b.innerHTML = FP.playing
+  ? '<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'
+  : '<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'; }
+function fpFreq(v){ FP.freq=+v; var l=document.getElementById('fp-freq-val'); if(l) l.textContent=v+' Hz';
+  if(FP.osc) FP.osc.frequency.setTargetAtTime(FP.freq, FP.ac.currentTime, 0.02); }
+function fpVol(v){ FP.vol=v/100; var l=document.getElementById('fp-vol-val'); if(l) l.textContent=v+'%';
+  if(FP.gain) FP.gain.gain.setTargetAtTime(FP.vol, FP.ac.currentTime, 0.02); }
+function fpPreset(f, name){ document.getElementById('fp-freq').value=f; fpFreq(f);
+  var el=document.getElementById('fp-name'); if(el) el.textContent=name;
+  if(!FP.playing) fpToggle(); }
+function bufToWav(buf){
+  var ch=buf.getChannelData(0), sr=buf.sampleRate, n=ch.length;
+  var ab=new ArrayBuffer(44+n*2), v=new DataView(ab);
+  function s(o,str){for(var i=0;i<str.length;i++)v.setUint8(o+i,str.charCodeAt(i));}
+  s(0,'RIFF'); v.setUint32(4,36+n*2,true); s(8,'WAVE'); s(12,'fmt '); v.setUint32(16,16,true);
+  v.setUint16(20,1,true); v.setUint16(22,1,true); v.setUint32(24,sr,true); v.setUint32(28,sr*2,true);
+  v.setUint16(32,2,true); v.setUint16(34,16,true); s(36,'data'); v.setUint32(40,n*2,true);
+  for(var i=0;i<n;i++){ var x=Math.max(-1,Math.min(1,ch[i])); v.setInt16(44+i*2, x<0?x*0x8000:x*0x7FFF, true); }
+  return ab;
+}
+async function fpDownload(){
+  var b=document.getElementById('fp-dl'); if(!b) return; var t=b.textContent; b.textContent='Gerando áudio...'; b.disabled=true;
+  try{
+    var secs=300, sr=44100, off=new OfflineAudioContext(1, sr*secs, sr);
+    var o=off.createOscillator(), g=off.createGain(); o.type='sine'; o.frequency.value=FP.freq; g.gain.value=FP.vol;
+    o.connect(g).connect(off.destination); o.start(); o.stop(secs);
+    var rb=await off.startRendering(); var blob=new Blob([bufToWav(rb)],{type:'audio/wav'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='frequencia-davinci-'+FP.freq+'hz.wav'; a.click();
+  }catch(e){ alert('Não foi possível gerar o áudio neste navegador.'); }
+  b.textContent=t; b.disabled=false;
+}
+
+function pageFreq(){
+  const presets = PRESETS.map(p=>`<button class="chip" onclick="fpPreset(${p.f},'${p.n}')"><b>${p.n}</b><span>${p.d}</span></button>`).join('');
+  const passos = Object.entries(DATA.guia).map(([k,v])=>`<div class="step"><h4>${esc(k)}</h4><p>${esc(v)}</p></div>`).join('');
+  return `
+  <div class="prod">
+    <button class="back" onclick="location.hash=''">${backIco} Voltar</button>
+    <h1>Sua Frequência Personalizada</h1>
+    <p class="sub">Ajuste a frequência e o volume, encontre o seu ponto de alívio e use nas suas sessões diárias.</p>
+
+    <div class="player">
+      <div class="player-name" id="fp-name">Calmante</div>
+      <div class="player-freq"><span id="fp-freq-val">432 Hz</span></div>
+      <button id="fp-btn" class="player-play" onclick="fpToggle()"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+
+      <div class="ctrl">
+        <label>Frequência <span id="fp-freq-val2"></span></label>
+        <input id="fp-freq" type="range" min="174" max="852" step="1" value="432" oninput="fpFreq(this.value)">
+      </div>
+      <div class="ctrl">
+        <label>Volume <span id="fp-vol-val">35%</span></label>
+        <input id="fp-vol" type="range" min="0" max="100" step="1" value="35" oninput="fpVol(this.value)">
+      </div>
+
+      <p class="player-hint">🎧 Use fones de ouvido para melhor experiência · Loop ativado</p>
+      <button id="fp-dl" class="player-dl" onclick="fpDownload()">Baixar áudio (5 min)</button>
+
+      <div class="chips">${presets}</div>
+    </div>
+
+    <div class="block">
+      <h3>Guia rápido de uso</h3>
+      <div class="steps">${passos}</div>
+    </div>
+  </div>`;
+}
+
+/* ===== Página: Depoimentos ===== */
+function pageDepoimentos(){
+  const cards = DATA.depoimentos.map(d=>`
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <p class="dep-text">"${esc(d.text)}"</p>
+      <div class="dep-who"><b>${esc(d.name)}</b><span>${esc(d.city)}</span></div>
+    </div>`).join('');
+  return `
+  <div class="prod">
+    <button class="back" onclick="location.hash=''">${backIco} Voltar</button>
+    <h1>Depoimentos Reais</h1>
+    <p class="sub">Histórias de quem já usou as Frequências da Vinci.</p>
+    <div class="dep-grid">${cards}</div>
+  </div>`;
+}
+
+/* ===== Página: Garantia ===== */
+function pageGarantia(){
+  return `
+  <div class="prod">
+    <button class="back" onclick="location.hash=''">${backIco} Voltar</button>
+    <h1>Garantia de 7 Dias</h1>
+    <div class="block">
+      <h3>Risco zero para você</h3>
+      <p>Você tem 7 dias de garantia total a partir da compra. Use as frequências, siga o guia e sinta os primeiros resultados sem preocupação.</p>
+    </div>
+    <div class="block">
+      <h3>Como funciona</h3>
+      <p>Se dentro de 7 dias você sentir que as Frequências da Vinci não são para você, é só entrar em contato com o nosso suporte pedindo o reembolso. Nós devolvemos 100% do valor pago, sem burocracia e sem perguntas difíceis.</p>
+    </div>
+    <div class="block">
+      <h3>Como solicitar</h3>
+      <p>Basta enviar um e-mail para o suporte informando o e-mail usado na compra. A devolução é processada pela plataforma de pagamento em até alguns dias úteis.</p>
+    </div>
+    <button class="buy" onclick="openSuporte()">Falar com o suporte</button>
+  </div>`;
+}
+
+/* ===== Página: Bônus ===== */
+function pageBonus(key){
+  const b = DATA.bonus_content[key]; if(!b) return homeHTML();
+  return `
+  <div class="prod">
+    <button class="back" onclick="location.hash=''">${backIco} Voltar</button>
+    <span class="tagline">${esc(b.tag)}</span>
+    <h1>${esc(b.title)}</h1>
+    <div class="block"><p>${esc(b.desc)}</p></div>
+    <a class="buy" href="${b.file}" download>Baixar material</a>
+    <p class="guarantee" style="margin-top:14px">Bônus liberado com a sua compra.</p>
+  </div>`;
+}
+
+/* ===== Modal de Suporte ===== */
+function openSuporte(){ var m=document.getElementById('suporte-modal'); if(m) m.classList.add('open'); }
+function closeSuporte(){ var m=document.getElementById('suporte-modal'); if(m) m.classList.remove('open'); }
+function copiarEmail(){
+  var e="suporte-frequenciadavinci@uorak.com";
+  navigator.clipboard && navigator.clipboard.writeText(e);
+  var b=document.getElementById('sup-copy'); if(b){ var t=b.textContent; b.textContent='E-mail copiado!'; setTimeout(()=>b.textContent=t,1600); }
+}
+
+const backIco = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>';
+
+/* registro de páginas por slug */
+const PAGES = {
+  'frequencia-personalizada': pageFreq,
+  'depoimentos': pageDepoimentos,
+  'garantia': pageGarantia,
+  'eliminador-nevoa': ()=>pageBonus('eliminador-nevoa'),
+  'guia-alimentos': ()=>pageBonus('guia-alimentos'),
+  'interruptor-emergencia': ()=>pageBonus('interruptor-emergencia')
+};
+
+function render(){
+  const slug = location.hash.replace(/^#\/?/,'').trim();
+  const app = document.getElementById('app');
+  if(typeof fpStop==='function') fpStop();
+  if(slug){
+    if(PAGES[slug]){ app.innerHTML = PAGES[slug](); window.scrollTo(0,0); return; }
+    const p = DATA.produtos.find(x=>x.slug===slug);
+    if(p){ app.innerHTML = productHTML(p); window.scrollTo(0,0); return; }
+  }
+  app.innerHTML = homeHTML();
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange', render);
+render();
+</script>
+
+  <div id="suporte-modal" class="modal-back" onclick="if(event.target===this)closeSuporte()">
+    <div class="modal">
+      <button class="modal-x" onclick="closeSuporte()">✕</button>
+      <div class="modal-title">✉️ Suporte 24 Horas</div>
+      <p class="modal-sub">Nossa equipe está disponível para te ajudar. Entre em contato pelo e-mail abaixo:</p>
+      <div class="modal-emailbox">
+        <div class="modal-emaillabel">E-MAIL DE SUPORTE</div>
+        <div class="modal-email">suporte-frequenciadavinci@uorak.com</div>
+      </div>
+      <button id="sup-copy" class="modal-copy" onclick="copiarEmail()">Copiar e-mail</button>
+    </div>
+  </div>
+</body>
+</html>
