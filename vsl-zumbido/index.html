@@ -83,57 +83,6 @@
                     <vturb-smartplayer id="vid-6aa31a47279f7db56cbfda27" style="display: block; margin: 0 auto; width: 100%; "><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/12697a4b-7984-4828-9220-b47e396bfca6/players/6aa31a47279f7db56cbfda27/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
                 <!-- Fim vTurb -->
 
-                <!-- ================================================================
-                     CHECKOUT DO FRONT — só aparece quando o botão DA VTURB
-                     (o hotspot de dentro do vídeo, já configurado por você) é
-                     clicado. Não existe botão nosso aqui, de propósito.
-
-                     Pra isso funcionar, o link do hotspot na VTurb precisa
-                     apontar pra URL desta mesma página + "#fdv-front-checkout"
-                     (em vez do link antigo do Whop). O script abaixo escuta
-                     esse endereço e revela o bloco só nesse momento.
-
-                     Cartão → widget embutido (salva o método de pagamento p/ 1-clique).
-                     PIX → link direto pro checkout hospedado (PIX não pode ficar
-                     dentro do widget embutido, por isso fica separado).
-                     ================================================================ -->
-                <script src="/fdv-oneclick.js"></script>
-
-                <div class="checkout-front" id="fdv-front-checkout" style="display:none;max-width:640px;margin:0 auto;padding:0 12px">
-                  <a href="https://whop.com/checkout/ch_XmIbeZoej9XUZQS" style="display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;background:linear-gradient(180deg,#22A745,#1c8f3b);color:#fff;text-transform:uppercase;font-weight:900;font-size:clamp(17px,4.6vw,22px);line-height:1.3;padding:22px 18px;border-radius:14px;box-shadow:0 8px 22px rgba(34,167,69,.32);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif">
-                    ✅ Pagar com PIX (aprovação na hora)
-                  </a>
-
-                  <p style="text-align:center;margin:16px 0;font-weight:700;opacity:.7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif">ou pague com cartão de crédito</p>
-
-                  <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
-                  <script>
-                    window.onCheckoutComplete = window.fdvFrontComplete;
-                  </script>
-                  <div
-                    id="whop-embedded-checkout"
-                    data-whop-checkout-session="ch_XmIbeZoej9XUZQS"
-                    data-whop-checkout-plan-id="plan_6BcpgQiBTU6BC"
-                    data-whop-checkout-setup-future-usage="off_session"
-                    data-whop-checkout-on-complete="onCheckoutComplete"
-                    data-whop-checkout-return-url="https://segredodozumbido.netlify.app/up1-acompanhamento/"
-                    data-whop-checkout-locale="pt"
-                  ></div>
-                </div>
-
-                <script>
-                  function fdvRevealFrontCheckout() {
-                    if (location.hash === "#fdv-front-checkout") {
-                      var el = document.getElementById("fdv-front-checkout");
-                      el.style.display = "block";
-                      el.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }
-                  }
-                  window.addEventListener("hashchange", fdvRevealFrontCheckout);
-                  fdvRevealFrontCheckout();
-                </script>
-                
-
                 <p class="volume-notice">
                     <img src="images/EgR7CBCgQbER.svg" width="24" height="24" alt="Volume">
                     Por favor, verifique se o som está ligado.
