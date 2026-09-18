@@ -240,8 +240,48 @@
       <div class="preco-nota">pagamento único, sem mensalidade</div>
     </div>
 
-<a href="https://whop.com/checkout/ch_XCNVzI25032PdyB" class="btn-sim">SIM, QUERO DORMIR MELHOR</a>
-    <a href="/ds2-sono" class="btn-nao">Não quero cuidar das minhas noites agora</a>
+ <div>
+ <meta charset="UTF-8">
+   <cakto-upsell-buttons>
+      <cakto-upsell-accept
+        bg-color="#0f7865"
+        text-color="#ffffff"
+        upsell-accept-url="/up3-express/"
+        offer-id="yfwyzzs"
+        app-base-url="https://app.cakto.com.br"
+        offer-type="upsell"
+        upsell-reject-url="/ds2-sono/"
+      >
+        SIM, QUERO DORMIR MELHOR
+      </cakto-upsell-accept>
+      <cakto-upsell-reject
+        upsell-reject-url="/ds2-sono/"
+      >
+        Não quero cuidar das minhas noites agora
+      </cakto-upsell-reject>
+    </cakto-upsell-buttons>
+
+
+     <!-- Descomente o código abaixo para estilzar o css dos botões -->
+      <!-- <style>
+          /* Botão de aceitar upsell */
+          cakto-upsell-accept::part(button) {
+              background-color: red;
+              color: white;
+              /* Ajuste do tamanho do botão
+              Descomente o código abaixo para definir um tamanho customizado para o botão */
+              /* width: 100vw; */
+          }
+
+          /* Botão de rejeitar upsell */
+          cakto-upsell-reject::part(button) {
+              background-color: blue;
+              color: white;
+          }
+      </style> -->
+
+  <script type="text/javascript" src="https://caktoscripts.nyc3.cdn.digitaloceanspaces.com/upsell.js"></script>
+ </div>
 
 
 
